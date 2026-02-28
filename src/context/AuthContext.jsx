@@ -78,8 +78,8 @@ export const AuthProvider = ({ children }) => {
       });
       if (error) throw error;
 
-      if (data?.user) {
-        // Automatically set the role in the profile
+      if (data?.user && !data.requireEmailVerification) {
+        // Automatically set the role in the profile only if verified
         await insforge.auth.setProfile({ role, name });
 
         // Also sync with the profiles table in public schema
@@ -89,6 +89,23 @@ export const AuthProvider = ({ children }) => {
           email,
           role
         }]);
+
+        // Sync with role-specific tables
+        if (role === 'patient') {
+          await insforge.database.from('patients').insert([{
+            profile_id: data.user.id,
+            name,
+            email,
+            visits: 0
+          }]);
+        } else if (role === 'doctor') {
+          await insforge.database.from('doctors').insert([{
+            profile_id: data.user.id,
+            name,
+            email,
+            specialization: 'General Physician'
+          }]);
+        }
       }
 
       return { success: true, requireVerification: data?.requireEmailVerification };
@@ -99,24 +116,50 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const verifyOTP = async (email, token) => {
+  const verifyOTP = async (email, otp, name, role) => {
     setError(null);
     try {
-      const { data, error } = await insforge.auth.verifyOtp({
+      const { data, error } = await insforge.auth.verifyEmail({
         email,
-        token,
-        type: 'signup',
+        otp,
       });
       if (error) throw error;
 
-      if (data?.session) {
-        const { user } = data.session;
-        const role = user.profile?.role || user.user_metadata?.role || 'patient';
+      if (data?.user) {
+        // Now that we have a session, set the profile
+        await insforge.auth.setProfile({ role, name });
+
+        // Sync with profiles table
+        await insforge.database.from('profiles').insert([{
+          id: data.user.id,
+          name: name || data.user.profile?.name || email.split('@')[0],
+          email,
+          role: role || 'patient'
+        }]);
+
+        // Sync with role-specific tables
+        const role_val = role || 'patient';
+        if (role_val === 'patient') {
+          await insforge.database.from('patients').insert([{
+            profile_id: data.user.id,
+            name: name || email.split('@')[0],
+            email,
+            visits: 0
+          }]);
+        } else if (role_val === 'doctor') {
+          await insforge.database.from('doctors').insert([{
+            profile_id: data.user.id,
+            name: name || email.split('@')[0],
+            email,
+            specialization: 'General Physician'
+          }]);
+        }
+
         const userData = {
-          id: user.id,
-          email: user.email,
-          name: user.profile?.name || user.user_metadata?.name || user.email.split('@')[0],
-          role: role,
+          id: data.user.id,
+          email: data.user.email,
+          name: name || data.user.profile?.name || email.split('@')[0],
+          role: role || 'patient',
         };
         setUser(userData);
         localStorage.setItem('clinic_user', JSON.stringify(userData));

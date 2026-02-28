@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Calendar, Clock, User, Plus, Search, CheckCircle, XCircle, AlertCircle, TrendingUp } from 'lucide-react';
 import insforge from '../../api/insforge';
 import Card from '../../components/ui/Card';
@@ -116,9 +117,16 @@ const ReceptionistDashboard = () => {
           <h1 className="text-2xl font-black text-gray-900 leading-tight">Front Desk Dashboard</h1>
           <p className="text-gray-500 font-medium">Daily operations and appointment coordination.</p>
         </div>
-        <Button onClick={() => setShowModal(true)} className="shadow-lg shadow-primary-200">
-          <Plus className="w-5 h-5 mr-2" /> Schedule Visit
-        </Button>
+        <div className="flex gap-2">
+          <Link to="/receptionist/patients">
+            <Button variant="secondary" className="shadow-sm">
+              <User className="w-5 h-5 mr-2" /> Register Patient
+            </Button>
+          </Link>
+          <Button onClick={() => setShowModal(true)} className="shadow-lg shadow-primary-200">
+            <Plus className="w-5 h-5 mr-2" /> Schedule Visit
+          </Button>
+        </div>
       </div>
 
       {/* Stats Grid */}

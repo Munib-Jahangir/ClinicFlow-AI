@@ -47,7 +47,7 @@ const Signup = () => {
     const handleVerify = async (e) => {
         e.preventDefault();
         setVerifying(true);
-        const result = await verifyOTP(formData.email, otp);
+        const result = await verifyOTP(formData.email, otp, formData.name, formData.role);
         setVerifying(false);
 
         if (result.success) {
