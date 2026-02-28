@@ -16,22 +16,9 @@ const AdminAnalytics = () => {
         completionRate: 0
     });
 
-    const [monthlyGrowth] = useState([
-        { name: 'Jan', value: 4000 },
-        { name: 'Feb', value: 3000 },
-        { name: 'Mar', value: 2000 },
-        { name: 'Apr', value: 2780 },
-        { name: 'May', value: 1890 },
-        { name: 'Jun', value: 2390 },
-        { name: 'Jul', value: 3490 },
-    ]);
+    const [monthlyGrowth] = useState([]);
 
-    const [sectorData] = useState([
-        { name: 'General', value: 400 },
-        { name: 'Cardiology', value: 300 },
-        { name: 'Pediatrics', value: 300 },
-        { name: 'Dermatology', value: 200 },
-    ]);
+    const [sectorData] = useState([]);
 
     const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'];
 

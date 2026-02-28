@@ -33,17 +33,6 @@ const Login = () => {
     }
   };
 
-  const demoAccounts = [
-    { role: 'Admin', email: 'admin@demo.com', password: 'Demo@1234' },
-    { role: 'Doctor', email: 'doctor@demo.com', password: 'Demo@1234' },
-    { role: 'Receptionist', email: 'receptionist@demo.com', password: 'Demo@1234' },
-    { role: 'Patient', email: 'patient@demo.com', password: 'Demo@1234' },
-  ];
-
-  const fillDemo = (demo) => {
-    setEmail(demo.email);
-    setPassword(demo.password);
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-medical-50 flex items-center justify-center p-4">
@@ -116,21 +105,6 @@ const Login = () => {
             </Link>
           </p>
 
-          {/* Demo accounts */}
-          <div className="mt-6 pt-6 border-t border-gray-100">
-            <p className="text-sm text-gray-500 text-center mb-3">Quick Demo Access</p>
-            <div className="grid grid-cols-2 gap-2">
-              {demoAccounts.map((demo) => (
-                <button
-                  key={demo.role}
-                  onClick={() => fillDemo(demo)}
-                  className="px-3 py-2 text-xs font-medium bg-gray-50 hover:bg-primary-50 text-gray-600 hover:text-primary-700 rounded-lg transition-colors"
-                >
-                  {demo.role}
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
 
         <p className="text-center text-sm text-gray-400 mt-6">

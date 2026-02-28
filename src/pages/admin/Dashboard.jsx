@@ -17,20 +17,9 @@ const AdminDashboard = () => {
 
   const [loading, setLoading] = useState(true);
   const [recentAppointments, setRecentAppointments] = useState([]);
-  const [topDiagnoses, setTopDiagnoses] = useState([
-    { name: 'General Consultation', count: 12 },
-    { name: 'Follow-up', count: 8 },
-    { name: 'Emergency', count: 3 }
-  ]);
+  const [topDiagnoses, setTopDiagnoses] = useState([]);
 
-  const [monthlyData] = useState([
-    { month: 'Jan', appointments: 45, revenue: 2250 },
-    { month: 'Feb', appointments: 52, revenue: 2600 },
-    { month: 'Mar', appointments: 61, revenue: 3050 },
-    { month: 'Apr', appointments: 38, revenue: 1900 },
-    { month: 'May', appointments: 72, revenue: 3600 },
-    { month: 'Jun', appointments: 85, revenue: 4250 },
-  ]);
+  const [monthlyData, setMonthlyData] = useState([]);
 
   useEffect(() => {
     fetchDashboardData();
