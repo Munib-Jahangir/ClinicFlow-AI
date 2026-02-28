@@ -160,7 +160,7 @@ const Signup = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <Input
                                 label="Full Name"
-                                placeholder="John Doe"
+                                placeholder="Ahmed Ali"
                                 value={formData.name}
                                 onChange={(e) => handleChange('name', e.target.value)}
                                 required
@@ -183,7 +183,7 @@ const Signup = () => {
                         <Input
                             label="Email Address"
                             type="email"
-                            placeholder="john@example.com"
+                            placeholder="ahmed.ali@example.com"
                             value={formData.email}
                             onChange={(e) => handleChange('email', e.target.value)}
                             required

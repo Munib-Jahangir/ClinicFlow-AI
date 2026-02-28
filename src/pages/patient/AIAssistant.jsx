@@ -7,7 +7,7 @@ import Badge from '../../components/ui/Badge';
 
 const AIAssistant = () => {
     const [messages, setMessages] = useState([
-        { role: 'assistant', content: 'Hello! I\'m your personalized ClinicFlow AI Assistant. I have access to your health records (simulated) and can help explain your diagnoses, medications, or answer general health questions. How can I help you today?' }
+        { role: 'assistant', content: 'Asalam-o-Alaikum! I\'m your personalized ClinicFlow AI Assistant. I can help you understand your health records, medications, or any medical concerns. How can I help you today?' }
     ]);
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
@@ -147,8 +147,8 @@ const AIAssistant = () => {
                                         </div>
                                         <div>
                                             <div className={`p-4 rounded-3xl text-sm shadow-sm leading-relaxed ${msg.role === 'user'
-                                                    ? 'bg-primary-600 text-white rounded-tr-sm'
-                                                    : 'bg-white text-gray-800 border border-gray-100 rounded-tl-sm'
+                                                ? 'bg-primary-600 text-white rounded-tr-sm'
+                                                : 'bg-white text-gray-800 border border-gray-100 rounded-tl-sm'
                                                 }`}>
                                                 <p className="whitespace-pre-wrap">{msg.content}</p>
                                             </div>

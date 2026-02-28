@@ -196,8 +196,8 @@ const DoctorsList = () => {
           )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <Input name="name" label="Doctor Name" placeholder="Dr. Sarah Johnson" defaultValue={editingDoctor?.name} required />
-            <Input name="email" label="Professional Email" type="email" placeholder="sarah.j@clinic.com" defaultValue={editingDoctor?.email} required />
+            <Input name="name" label="Doctor Name" placeholder="Dr. Ahmed Khan" defaultValue={editingDoctor?.name} required />
+            <Input name="email" label="Professional Email" type="email" placeholder="ahmed.khan@clinic.pk" defaultValue={editingDoctor?.email} required />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
