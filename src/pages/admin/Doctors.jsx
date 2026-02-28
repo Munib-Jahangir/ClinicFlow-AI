@@ -67,6 +67,7 @@ const DoctorsList = () => {
         });
 
         if (authError) throw authError;
+        if (!authData?.user) throw new Error('User creation failed or requires manual activation.');
 
         const userId = authData.user.id;
 

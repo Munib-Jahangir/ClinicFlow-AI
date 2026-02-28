@@ -50,7 +50,6 @@ const router = createBrowserRouter([
           { path: '/admin/dashboard', element: <AdminDashboard /> },
           { path: '/admin/doctors', element: <DoctorsList /> },
           { path: '/admin/receptionists', element: <ReceptionistsList /> },
-          { path: '/admin/patients', element: <PatientsList /> },
           { path: '/admin/appointments', element: <AdminAppointments /> },
           { path: '/admin/analytics', element: <AdminAnalytics /> },
         ],

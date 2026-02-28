@@ -62,6 +62,8 @@ const ReceptionistsList = () => {
 
             if (authError) throw authError;
 
+            if (!authData?.user) throw new Error('Could not create user session. Verification might be required.');
+
             const userId = authData.user.id;
 
             // Create Profile

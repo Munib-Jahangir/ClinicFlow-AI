@@ -26,18 +26,20 @@ export const AuthProvider = ({ children }) => {
       if (data?.session) {
         const { user } = data.session;
 
-        // Fetch role from profile table
-        const { data: profile } = await insforge.database
+        // Fetch role from profile table safely
+        const { data: profile, error: profileError } = await insforge.database
           .from('profiles')
           .select('*')
-          .eq('id', user.id)
+          .eq('id', user?.id)
           .single();
+
+        if (profileError) console.warn('Profile not found for session user');
 
         const role = profile?.role || user.user_metadata?.role || 'patient';
         const userData = {
-          id: user.id,
-          email: user.email,
-          name: profile?.name || user.user_metadata?.name || user.email.split('@')[0],
+          id: user?.id,
+          email: user?.email,
+          name: profile?.name || user?.user_metadata?.name || user?.email?.split('@')[0],
           role: role,
         };
         setUser(userData);
@@ -58,12 +60,14 @@ export const AuthProvider = ({ children }) => {
 
       const { user } = data;
 
-      // Fetch role from profile table
-      const { data: profile } = await insforge.database
+      // Fetch role from profile table safely
+      const { data: profile, error: profileError } = await insforge.database
         .from('profiles')
         .select('*')
-        .eq('id', user.id)
+        .eq('id', user?.id)
         .single();
+
+      if (profileError) console.warn('Profile not found during signin');
 
       let role = profile?.role || user.user_metadata?.role || 'patient';
 
@@ -73,9 +77,9 @@ export const AuthProvider = ({ children }) => {
       }
 
       const userData = {
-        id: user.id,
-        email: user.email,
-        name: profile?.name || user.user_metadata?.name || user.email.split('@')[0],
+        id: user?.id,
+        email: user?.email,
+        name: profile?.name || user?.user_metadata?.name || user?.email?.split('@')[0],
         role: role,
       };
       setUser(userData);
