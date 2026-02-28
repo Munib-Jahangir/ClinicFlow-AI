@@ -18,6 +18,7 @@ import {
   Settings,
   PieChart,
   ClipboardList,
+  ShieldCheck,
 } from 'lucide-react';
 import AIChatWidget from '../common/AIChatWidget';
 
@@ -25,6 +26,7 @@ const roleNavItems = {
   admin: [
     { path: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/admin/doctors', label: 'Doctors', icon: Stethoscope },
+    { path: '/admin/receptionists', label: 'Staff', icon: ShieldCheck },
     { path: '/admin/patients', label: 'Patients', icon: Users },
     { path: '/admin/appointments', label: 'Appointments', icon: Calendar },
     { path: '/admin/analytics', label: 'Analytics', icon: PieChart },

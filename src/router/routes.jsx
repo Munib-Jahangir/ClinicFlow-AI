@@ -9,11 +9,15 @@ import NotAuthorized from '../pages/NotAuthorized';
 import AdminDashboard from '../pages/admin/Dashboard';
 import DoctorsList from '../pages/admin/Doctors';
 import PatientsList from '../pages/admin/Patients';
+import AdminAppointments from '../pages/admin/Appointments';
+import AdminAnalytics from '../pages/admin/Analytics';
+import ReceptionistsList from '../pages/admin/Receptionists';
 
 // Doctor Pages
 import DoctorDashboard from '../pages/doctor/Dashboard';
 import AISymptomChecker from '../pages/doctor/AIChecker';
 import PrescriptionManager from '../pages/doctor/Prescriptions';
+import DoctorAppointments from '../pages/doctor/Appointments';
 
 // Receptionist Pages
 import ReceptionistDashboard from '../pages/receptionist/Dashboard';
@@ -21,6 +25,8 @@ import ReceptionistDashboard from '../pages/receptionist/Dashboard';
 // Patient Pages
 import PatientDashboard from '../pages/patient/Dashboard';
 import PatientAIAssistant from '../pages/patient/AIAssistant';
+import PatientHistory from '../pages/patient/History';
+import PatientPrescriptions from '../pages/patient/Prescriptions';
 
 const router = createBrowserRouter([
   {
@@ -43,9 +49,10 @@ const router = createBrowserRouter([
         children: [
           { path: '/admin/dashboard', element: <AdminDashboard /> },
           { path: '/admin/doctors', element: <DoctorsList /> },
+          { path: '/admin/receptionists', element: <ReceptionistsList /> },
           { path: '/admin/patients', element: <PatientsList /> },
-          { path: '/admin/appointments', element: <AdminDashboard /> },
-          { path: '/admin/analytics', element: <AdminDashboard /> },
+          { path: '/admin/appointments', element: <AdminAppointments /> },
+          { path: '/admin/analytics', element: <AdminAnalytics /> },
         ],
       },
     ],
@@ -57,11 +64,11 @@ const router = createBrowserRouter([
         element: <Layout />,
         children: [
           { path: '/doctor/dashboard', element: <DoctorDashboard /> },
-          { path: '/doctor/appointments', element: <DoctorDashboard /> },
-          { path: '/doctor/patients', element: <DoctorDashboard /> },
+          { path: '/doctor/appointments', element: <DoctorAppointments /> },
+          { path: '/doctor/patients', element: <PatientsList /> },
           { path: '/doctor/ai-checker', element: <AISymptomChecker /> },
           { path: '/doctor/prescriptions', element: <PrescriptionManager /> },
-          { path: '/doctor/analytics', element: <DoctorDashboard /> },
+          { path: '/doctor/analytics', element: <AdminAnalytics /> }, // Reusing AdminAnalytics or creating Dr specific
         ],
       },
     ],
@@ -88,8 +95,8 @@ const router = createBrowserRouter([
           { path: '/patient/dashboard', element: <PatientDashboard /> },
           { path: '/patient/appointments', element: <PatientDashboard /> },
           { path: '/patient/ai-assistant', element: <PatientAIAssistant /> },
-          { path: '/patient/history', element: <PatientDashboard /> },
-          { path: '/patient/prescriptions', element: <PatientDashboard /> },
+          { path: '/patient/history', element: <PatientHistory /> },
+          { path: '/patient/prescriptions', element: <PatientPrescriptions /> },
           { path: '/patient/profile', element: <PatientDashboard /> },
         ],
       },

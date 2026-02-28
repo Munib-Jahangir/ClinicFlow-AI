@@ -25,12 +25,19 @@ export const AuthProvider = ({ children }) => {
       const { data } = await insforge.auth.getCurrentSession();
       if (data?.session) {
         const { user } = data.session;
-        // Fetch role from profile or metadata
-        const role = user.profile?.role || user.user_metadata?.role || 'patient';
+
+        // Fetch role from profile table
+        const { data: profile } = await insforge.database
+          .from('profiles')
+          .select('*')
+          .eq('id', user.id)
+          .single();
+
+        const role = profile?.role || user.user_metadata?.role || 'patient';
         const userData = {
           id: user.id,
           email: user.email,
-          name: user.profile?.name || user.user_metadata?.name || user.email.split('@')[0],
+          name: profile?.name || user.user_metadata?.name || user.email.split('@')[0],
           role: role,
         };
         setUser(userData);
@@ -50,12 +57,20 @@ export const AuthProvider = ({ children }) => {
       if (error) throw error;
 
       const { user } = data;
-      const role = user.profile?.role || user.user_metadata?.role || 'patient';
+
+      // Fetch role from profile table
+      const { data: profile } = await insforge.database
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
+
+      const role = profile?.role || user.user_metadata?.role || 'patient';
 
       const userData = {
         id: user.id,
         email: user.email,
-        name: user.profile?.name || user.user_metadata?.name || user.email.split('@')[0],
+        name: profile?.name || user.user_metadata?.name || user.email.split('@')[0],
         role: role,
       };
       setUser(userData);
