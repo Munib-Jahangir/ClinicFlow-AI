@@ -1,16 +1,64 @@
-# React + Vite
+# 🏥 ClinicFlow AI - Premium Hospital Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ClinicFlow AI is a high-performance, role-based medical management ecosystem designed to streamline clinical workflows through AI-driven analytics, digital record keeping, and smart patient management.
 
-Currently, two official plugins are available:
+## 🚀 Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 👤 Role-Based Dashboards
+- **Admin**: Full operational control with real-time analytics, revenue tracking, and staff management (Doctors & Receptionists).
+- **Doctor**: Clinical terminal for patient queue management, **AI Symptom Analysis**, and **E-Prescription** (Auto-PDF generation).
+- **Patient**: Personal health hub to track appointment timeline, download digital prescriptions, and chat with an **AI Health Assistant**.
+- **Receptionist**: Front-desk operations for quick patient registration and dispatching appointments.
 
-## React Compiler
+### 🧠 Intelligent Core
+- **AI Symptom Checker**: Clinical decision support that analyzes symptoms and suggests possible conditions/tests.
+- **AI Health Companion**: 24/7 patient assistant to explain medical records and clarify health concerns.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 📊 Operational Excellence
+- **Real-time Analytics**: Interactive charts for daily patients, department inflow, and clinic revenue.
+- **Digital Records (EHR)**: Full patient history timeline including diagnoses and prescribed medications.
+- **Automated PDFs**: Instant generation of professional, clinic-branded prescriptions.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Technology Stack
+- **Frontend**: React 18, Vite (Extremely Fast Performance)
+- **Styling**: Modern Vanilla CSS (Premium Glassmorphism & Micro-animations)
+- **Backend**: InsForge Ecosystem (PostgreSQL Database, Storage, Auth)
+- **Icons**: Lucide React
+- **Visualization**: Recharts
+- **Documents**: jsPDF
+
+## 📦 Installation & Setup
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/Munib-Jahangir/ClinicFlow-AI.git
+   cd ClinicFlow-AI
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment**:
+   Ensure your InsForge API keys are configured in the `src/api/insforge.js` file.
+
+4. **Launch Application**:
+   ```bash
+   npm run dev
+   ```
+
+## 🌐 Deployment
+- **Platform**: Vercel (Integrated routing fixes for SPAs)
+- **Production URL**: [https://hospitalsystem.munibjahangirdev.site](https://hospitalsystem.munibjahangirdev.site)
+
+---
+
+## 📝 Project Summary (for Interviewers)
+- **Authentication**: Secure JWT-based Login/Signup with OTP verification.
+- **Database**: Real-time Relational Database (Profiles ↔ Roles ↔ Clinical Data).
+- **UX Design**: Focus on accessibility and professional "Medical Blue" aesthetics.
+
+Developed with ❤️ by **Munib Jahangir**
