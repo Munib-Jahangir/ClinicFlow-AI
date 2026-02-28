@@ -42,6 +42,55 @@ const ReceptionistsList = () => {
         s.email.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setSubmitting(true);
+        const formData = new FormData(e.target);
+        const staffData = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            password: formData.get('password'),
+            role: 'receptionist'
+        };
+
+        try {
+            const { data: authData, error: authError } = await insforge.auth.signUp({
+                email: staffData.email,
+                password: staffData.password,
+                name: staffData.name
+            });
+
+            if (authError) throw authError;
+
+            const userId = authData.user.id;
+
+            // Create Profile
+            await insforge.database.from('profiles').insert([{
+                id: userId,
+                name: staffData.name,
+                email: staffData.email,
+                role: 'receptionist'
+            }]);
+
+            // Create Receptionist record
+            const { error: dbError } = await insforge.database.from('receptionists').insert([{
+                profile_id: userId,
+                name: staffData.name,
+                email: staffData.email,
+                status: 'active'
+            }]);
+
+            if (dbError) throw dbError;
+
+            setShowModal(false);
+            fetchReceptionists();
+        } catch (err) {
+            alert(err.message);
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
     return (
         <div className="space-y-6 animate-fade-in">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -112,17 +161,17 @@ const ReceptionistsList = () => {
             </div>
 
             <Modal isOpen={showModal} onClose={() => setShowModal(false)} title="Register Support Staff" size="md">
-                <form className="space-y-6">
-                    <Input label="Full Name" placeholder="Receptionist Name" required />
-                    <Input label="Email Address" type="email" placeholder="staff@clinic.com" required />
-                    <Input label="Temporary Password" type="password" placeholder="••••••••" required />
+                <form className="space-y-6" onSubmit={handleSubmit}>
+                    <Input name="name" label="Full Name" placeholder="Receptionist Name" required />
+                    <Input name="email" label="Email Address" type="email" placeholder="staff@clinic.com" required />
+                    <Input name="password" label="Temporary Password" type="password" placeholder="••••••••" required />
                     <div className="p-4 bg-primary-50 rounded-2xl border border-primary-100 flex items-start gap-4">
                         <Shield className="w-6 h-6 text-primary-500 mt-1" />
                         <p className="text-xs font-bold text-primary-700 leading-relaxed italic">Registering a user here will grant them access to booking portals and patient records. Secure authorization required.</p>
                     </div>
                     <div className="flex justify-end gap-3 pt-4 border-t border-gray-50">
                         <Button variant="secondary" onClick={() => setShowModal(false)}>Cancel</Button>
-                        <Button type="button" onClick={() => setShowModal(false)}>Invite Staff</Button>
+                        <Button type="submit" loading={submitting}>Register Staff</Button>
                     </div>
                 </form>
             </Modal>

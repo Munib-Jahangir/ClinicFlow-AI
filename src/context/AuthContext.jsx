@@ -65,7 +65,12 @@ export const AuthProvider = ({ children }) => {
         .eq('id', user.id)
         .single();
 
-      const role = profile?.role || user.user_metadata?.role || 'patient';
+      let role = profile?.role || user.user_metadata?.role || 'patient';
+
+      // ADMIN LOCK: Force Admin role for the specific credential
+      if (email === 'admin123@gmail.com') {
+        role = 'admin';
+      }
 
       const userData = {
         id: user.id,

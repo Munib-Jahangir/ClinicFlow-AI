@@ -58,9 +58,33 @@ const DoctorsList = () => {
           .update(doctorData)
           .eq('id', editingDoctor.id);
       } else {
+        // Register User first
+        const password = formData.get('password') || 'Pass123!';
+        const { data: authData, error: authError } = await insforge.auth.signUp({
+          email: doctorData.email,
+          password: password,
+          name: doctorData.name
+        });
+
+        if (authError) throw authError;
+
+        const userId = authData.user.id;
+
+        // Create Profile
+        await insforge.database.from('profiles').insert([{
+          id: userId,
+          name: doctorData.name,
+          email: doctorData.email,
+          role: 'doctor'
+        }]);
+
+        // Create Doctor record
         result = await insforge.database
           .from('doctors')
-          .insert([doctorData]);
+          .insert([{
+            ...doctorData,
+            profile_id: userId
+          }]);
       }
 
       if (result.error) throw result.error;
@@ -199,6 +223,10 @@ const DoctorsList = () => {
             <Input name="name" label="Doctor Name" placeholder="Dr. Ahmed Khan" defaultValue={editingDoctor?.name} required />
             <Input name="email" label="Professional Email" type="email" placeholder="ahmed.khan@clinic.pk" defaultValue={editingDoctor?.email} required />
           </div>
+
+          {!editingDoctor && (
+            <Input name="password" label="Temporary Password" type="password" placeholder="••••••••" required />
+          )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <Select

@@ -157,7 +157,7 @@ const Signup = () => {
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-5">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div className="grid grid-cols-1 gap-5">
                             <Input
                                 label="Full Name"
                                 placeholder="Ahmed Ali"
@@ -165,18 +165,6 @@ const Signup = () => {
                                 onChange={(e) => handleChange('name', e.target.value)}
                                 required
                                 prefix={<User className="w-4 h-4 text-gray-400" />}
-                            />
-                            <Select
-                                label="Role"
-                                value={formData.role}
-                                onChange={(e) => handleChange('role', e.target.value)}
-                                options={[
-                                    { value: 'patient', label: 'Patient' },
-                                    { value: 'doctor', label: 'Doctor' },
-                                    { value: 'receptionist', label: 'Receptionist' },
-                                    { value: 'admin', label: 'Admin' },
-                                ]}
-                                required
                             />
                         </div>
 
